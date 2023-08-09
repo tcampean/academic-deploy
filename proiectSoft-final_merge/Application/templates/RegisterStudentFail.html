@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+<h1>Template</h1>
+<form action='' method = "POST">
+    <p id = "username_exists" style="color: red ; display: none;"> Username already exists!</p>
+    <p id = "invalid_login" style="color: red ; display: none" > Invalid credentials!</p>
+
+  <p>Username <input type = "text" name = "user" /></p>
+  <p>Password <input type = "text" name = "password" /></p>
+  <p>First Name <input type = "text" name = "first" /></p>
+  <p>Last Name <input type = "text" name = "last" /></p>
+
+  <p><input type = "submit" value = "Submit" /></p>
+</form>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'Student/StudentBase.html' %}
+
+{% block head %}
+<style>
+    .plus-button{
+        transition: 500ms;
+        max-height: 2rem;
+        margin: 0.8rem;
+        cursor: pointer;
+    }
+    .plus-button:hover{
+        max-height: 3.25rem;
+        margin: 0.2rem;
+    }
+
+    button{
+        padding: 8px 15px;border-radius: 10px !important;margin: 5px 0px;box-sizing: border-box;border: 0px;
+        font-size: 1.1rem !important;font-weight: 300; background-color: var(--bg-primary) !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Compulsory Courses</h1>
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Taught by</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            {% for teacher in teachers %}
+                {% if teacher.teacher_id == course.teacher_id | int %}
+                    <tr>
+                        <td style="width: 20%">{{ course.course_name }}</td>
+                        <td>{{ course.course_description }}</td>
+                        <td style="width:20%">{{ teacher.first_name }} {{ teacher.last_name }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+<h1>Optional Courses</h1>
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" style="width: 20%">Taught by</th>
+                    <th scope="col" style="text-align: center; width: 5%; min-width: 5%" >Add</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for optional in optionals %}
+            {% for teacher in teachers %}
+                {% if teacher.teacher_id == optional.teacher_id | int %}
+                    <tr>
+                        <td>{{ optional.course_name }}</td>
+                        <td>{{ optional.course_description }}</td>
+                        <td>{{ teacher.first_name }} {{ teacher.last_name }}</td>
+                        <td>
+                            {% if optional.course_id not in student_courses %}
+                                <a href={{url_for('take_optional', optional_course=optional)}}>
+                                    <img class="plus-button" src="{{url_for('static', filename = 'plus.png')}}">
+                                </a>
+                            {% else %}
+                                <!-- AICI TREBUIE UN MINUS IN LOC DE PLUS PT A ELIMINA OPTIONALUL-->
+                                <a href={{url_for('remove_optional', optional_course=optional)}}>
+                                    <img class="plus-button" src="{{url_for('static', filename = 'minus.png')}}">
+                                </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+<a href="{{url_for('study_contract_pdf')}}"><button type="button">Generate Contract</button></a>
+{% endblock %}

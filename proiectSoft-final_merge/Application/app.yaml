@@ -1,0 +1,7 @@
+runtime: python310
+entrypoint: gunicorn -b :$PORT main:app
+env_variables:
+  CLOUD_SQL_USERNAME: flask-academic
+  CLOUD_SQL_PASSWORD: lG?^FOjA97M]]A4X
+  CLOUD_SQL_DATABASE_NAME: academic-db
+  CLOUD_SQL_CONNECTION_NAME: flask-academic:us-central1:flask-academic-db

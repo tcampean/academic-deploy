@@ -1,0 +1,29 @@
+{% extends 'Staff/StaffBase.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<h1>Students GPA</h1>
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">GPA</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for student in studentsGPA %}
+            <tr>
+                <td>{{student.first_name}}</td>
+                <td>{{student.last_name}}</td>
+                <td>{{student.GPA}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

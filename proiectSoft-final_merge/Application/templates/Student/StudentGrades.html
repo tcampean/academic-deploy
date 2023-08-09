@@ -1,0 +1,44 @@
+{% extends 'Student/StudentBase.html' %}
+
+{% block head %}
+<style>
+    .flex-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+<h1>Grades</h1>
+<div class="flex-container">
+    <table class="table" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">Course</th>
+              <th  scope="col" style="width: 25%">Grade</th>
+            </tr>
+        </thead>
+        <tbody class="table-striped">
+             {% for course in courses %}
+                {% for student_course in student_courses %}
+                    {% if student_course.course_id | int == course.course_id %}
+                        <tr>
+                            <td>{{ course.course_name }}</td>
+                            {% if student_course.grade is none %}
+                            <td>not graded yet</td>
+                            {% else %}
+                            <td>{{ student_course.grade }}</td>
+                            {%endif%}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

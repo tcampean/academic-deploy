@@ -1,0 +1,80 @@
+{% extends 'Student/StudentBase.html' %}
+
+{% block head %}
+
+<style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .title {
+      color: grey;
+      font-size: 18px;
+    }
+
+    button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+        background-color: var(--bg-primary);
+    }
+
+    #buttoncool {
+      text-decoration: none;
+      font-size: 22px;
+      color: black;
+    }
+    button:hover, a:hover {
+      opacity: 0.7;
+}
+    .plus-button{
+        transition: 500ms;
+        max-height: 2rem;
+        margin: 0.8rem;
+        cursor: pointer;
+    }
+    .plus-button:hover{
+        max-height: 3.25rem;
+        margin: 0.2rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="flex-container">
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Year</th>
+          <th scope="col" style="width: 15%; min-width: 15%">Enroll</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for n in range(3) %}
+            <tr>
+                <td>Year {{n+1}}</td>
+                <td style="text-align: center">
+                    <a id="buttoncool" href={{url_for('enroll', selected_year=n+1)}}>
+                        <img class="plus-button"src="{{url_for('static', filename = 'plus.png')}}">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock %}

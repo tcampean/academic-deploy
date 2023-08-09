@@ -1,0 +1,36 @@
+{% extends 'Student/StudentBase.html' %}
+
+{% block head %}
+<style>
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Courses</h1>
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Taught by</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            {% for student_course in student_courses %}
+                {% if course.course_id == student_course.course_id | int %}
+                    {% for teacher in teachers %}
+                        {% if teacher.teacher_id == course.teacher_id | int %}
+                            <tr>
+                                <td>{{ course.course_name }}</td>
+                                <td>{{ course.course_description }}</td>
+                                <td>{{ teacher.first_name }} {{ teacher.last_name }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "Login/base.html" %}
+{% block title%} {{ title }} {% endblock %}
+
+{% block head %}
+<style>
+  #login-box{
+    display: flex;
+    border-radius: 50px;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top:clamp(15vh, 30vh, 70vh);
+    padding: 20px 30px;
+    margin: 0;
+    width: 20rem;
+    height: 100%;
+  }
+  .text-center{
+      margin:2rem;
+  }
+
+  ul{
+  list-style-type: none;
+  }
+</style>
+{% endblock %}
+
+{% block content%}
+<div class="container" >
+    <div class="row mt-4" >
+        <div class="col-lg-5 col-md-6 m-auto card p-4" style="width: 23rem; box-shadow: 0 0 10px 0 #000;background-color: #ffffff; border: none; border-radius: 50px;">
+            <form action="{{ request.path }}" method="POST" class="card-body" id="login-box">
+                {{ form.csrf_token }}
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <div class="text-center" >
+                    <h2>User Authentication</h2>
+                    <h5 class="text-primary">{{ text }}</h5>
+                </div>
+                
+                {% if request.path == '/register/' %}
+                <div class="form-group mb-3" >
+                    {{ form.username(class_="form-control",placeholder="Username")}}
+                </div>
+                {% for error in form.username.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor%}
+                {% endif%}
+
+                <div class="form-group mb-3">
+                    {{ form.email(class_="form-control",placeholder="Email", style="border-radius:10px;background-color:#ffffff;")}}
+                </div>
+                {% for error in form.email.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor%}
+
+                <div class="form-group mb-3">
+                    {{ form.password(class_="form-control",placeholder="Password",style="border-radius:10px;background-color:#ffffff;")}}
+                </div>
+                {% for error in form.password.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> {% endfor%}
+                {% if request.path == '/register/' %}
+                <div class="form-group mb-3" >
+                    {{ form.copypassword(class_="form-control",placeholder="Confirm Password")}}
+                </div>
+                {% for error in form.copypassword.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> {% endfor%}
+                {% endif %}
+
+                {% if request.path == '/register/' %}
+                <div class="form-group mb-3" >
+                    {{ form.access_level(class_="form-control",placeholder="Access Level")}}
+                </div>
+                {% for error in form.access_level.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> {% endfor%}
+                {% endif %}
+
+                <div class="text-center">
+
+                    <div class="d-grid gap-2">
+                        <button style="background-color:#fc8d54;border-color: #fc8d54;" type="submit" class="btn btn-block btn-primary mb-3"> {{ btn_action }} </button>
+                    </div>
+
+                    <p>
+                        {% if request.path != '/register/' %}
+                        New here?
+                        <a href="{{url_for('register')}}">Create account</a>
+                        {% else %}
+                        Already have an account?
+                        <a href="{{url_for('login')}}">Login</a>
+                        {% endif %}
+                    </p>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'Teacher/TeacherBase.html' %}
+
+{% block head %}
+<style>
+    button{
+        padding: 8px 15px;border-radius: 10px !important;margin: 5px 0px;box-sizing: border-box;border: 0px;
+        font-size: 1.1rem !important;font-weight: 300; }
+    .card{padding: 30px 40px;margin-top: 60px;margin-bottom: 60px;
+        border: none !important;box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)}
+    input:focus, textarea:focus{-moz-box-shadow: none !important;-webkit-box-shadow: none !important;
+        box-shadow: none !important;border: 1px solid var(--bg-secondary);outline-width: 0;font-weight: 400}
+    .btn-block:hover{color: #fff !important}button:focus{-moz-box-shadow: none !important;
+                                                -webkit-box-shadow: none !important;box-shadow: none !important;
+                                                outline-width: 0}
+    #bossoranj{
+        background-color: var(--bg-primary) !important;
+    }
+    /*#tablesandform{*/
+    /*    display: flex;*/
+    /*    flex-direction: row;*/
+    /*}*/
+</style>
+
+{% endblock %}
+
+{% block body %}
+<h1>Grades</h1>
+<form action='' method = "POST">
+    <div>
+        {% for course in courses %}
+            <h3 style="text-decoration: underline">{{course.course_name}}</h3>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Grade</th>
+                    </tr>
+                </thead>
+                <tbody class="table-striped">
+                    {% for student_course in student_courses %}
+                        {% if course.course_id == student_course.course_id | int %}
+                            {% for student in students %}
+                                {% if student.student_id | int == student_course.student_id | int %}
+                                    <tr>
+                                        <td>{{ student.first_name }}</td>
+                                        <td>{{ student.last_name }}</td>
+                                        <td>{{ student_course.grade }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+</form>
+
+<div class="container">
+
+<div class="container-fluid px-1 py-5 mx-auto" style="flex: 3 0 45rem;" id="tablesandform">
+    <div class="row d-flex justify-content-center" id="ianutemaiflexa">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <form class="form-card" method = "POST" action="{{ url_for('submitGradesForm') }}">
+                    <div class="row justify-content-center">
+                        <div class="form-group col-sm-6"> <button type="submit" id="bossoranj" class="btn-block">Grade Students</button> </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% block body2 %}
+
+{% endblock %}
+
+{% endblock %}

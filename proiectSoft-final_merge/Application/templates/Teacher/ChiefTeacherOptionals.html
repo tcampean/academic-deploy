@@ -1,0 +1,102 @@
+{% extends 'Teacher/TeacherBase.html' %}
+
+{% block head %}
+<style>
+    .flex-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+    button{
+        padding: 8px 15px;border-radius: 10px !important;margin: 5px 0px;box-sizing: border-box;border: 0px;
+        font-size: 1.1rem !important;font-weight: 300;}
+    .card{padding: 30px 40px;margin-top: 60px;margin-bottom: 60px;
+        border: none !important;box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)}
+    .form-control-label{margin-bottom: 0}
+    input:focus, textarea:focus{-moz-box-shadow: none !important;-webkit-box-shadow: none !important;
+        box-shadow: none !important;border: 1px solid var(--bg-secondary);outline-width: 0;font-weight: 400}
+    .btn-block:hover{color: #fff !important}button:focus{-moz-box-shadow: none !important;
+                                                -webkit-box-shadow: none !important;box-shadow: none !important;
+                                                outline-width: 0}
+    #bossoranj{
+        background-color: var(--bg-primary) !important;
+    }
+    .plus-button{
+        transition: 500ms;
+        max-height: 2rem;
+        margin: 0.8rem;
+        cursor: pointer;
+    }
+    .plus-button:hover{
+        max-height: 3.25rem;
+        margin: 0.2rem;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+<h1>Proposed Optionals</h1>
+<div class="flex-container">
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col" style="width: 35%">Description</th>
+          <th scope="col">Semester</th>
+          <th scope="col">Year</th>
+          <th scope="col">Max Students</th>
+          <th scope="col" style="width: 5%; min-width: 5%">Accept Course</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for proposed_course in proposed_courses %}
+            <tr>
+                <td>{{proposed_course.proposed_course_name}}</td>
+                <td>{{proposed_course.proposed_course_description}}</td>
+                <td>{{proposed_course.proposed_course_semester}}</td>
+                <td>{{proposed_course.proposed_course_year}}</td>
+                <td>{{proposed_course.proposed_course_max_number}}</td>
+                <td style="text-align: center">
+                    <a href={{url_for('propose_optionals_accept', accepted_course=proposed_course)}}>
+                        <img class="plus-button" src="{{url_for('static', filename = 'plus.png')}}">
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <h1>Accepted Optionals</h1>
+    <div class="flex-container">
+        <table class="table table-striped" style="flex: 4 1 40rem">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col" style="width: 35%">Description</th>
+              <th scope="col">Semester</th>
+              <th scope="col">Year</th>
+              <th scope="col">Max Students</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for optional_course in optional_courses %}
+                <tr>
+                    <td>{{optional_course.course_name}}</td>
+                    <td>{{optional_course.course_description}}</td>
+                    <td>{{optional_course.course_semester}}</td>
+                    <td>{{optional_course.course_year}}</td>
+                    <td>{{optional_course.course_max_number}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if limit < 2 %}
+
+        {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'Student/StudentBase.html' %}
+
+{% block head %}
+<style>
+    .plus-button{
+        transition: 500ms;
+        max-height: 2rem;
+        margin: 0.8rem;
+        cursor: pointer;
+    }
+    .plus-button:hover{
+        max-height: 3.25rem;
+        margin: 0.2rem;
+    }
+
+    button{
+        padding: 8px 15px;border-radius: 10px !important;margin: 5px 0px;box-sizing: border-box;border: 0px;
+        font-size: 1.1rem !important;font-weight: 300; background-color: var(--bg-primary) !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<center><h1>Student Contract</h1>
+<h5>Student: {{ student.first_name }} {{ student.last_name }}</h5>
+<h5>Year: {{ student.year }} | Group: {{ student.group }}</h5>
+</center>
+<br>
+<h3>Semester 1</h3>
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for student_course in student_courses %}
+            {% for course in courses %}
+                {% if course.course_id == student_course.course_id | int and course.course_semester == 1 %}
+                    <tr>
+                        <td>{{ course.course_name }}</td>
+                        <td>{{ course.course_type }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+<h3>Semester 2</h3>
+    <table class="table table-striped" style="flex: 4 1 40rem">
+        <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for student_course in student_courses %}
+            {% for course in courses %}
+                {% if course.course_id == student_course.course_id | int and course.course_semester == 2 %}
+                    <tr>
+                        <td>{{ course.course_name }}</td>
+                        <td>{{ course.course_type }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

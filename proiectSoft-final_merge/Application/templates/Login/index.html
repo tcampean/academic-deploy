@@ -1,0 +1,102 @@
+{% extends 'Login/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block head %}
+<style>
+  .login-box{
+    display: flex;
+    border-radius: 50px;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top:clamp(15vh, 30vh, 70vh);
+    box-shadow: 0 0 10px 0 #000;
+    padding: 20px 30px;
+    margin: auto;
+    width: 15rem;
+  }
+  ul{
+  list-style-type: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4 text-center" style="background-color: #ffffff; border-radius: 20px;">
+
+  {% if is_authenticated %}
+
+  <h1>Welcome {{ first_name }}</h1>
+
+  <a href="{{url_for('logout')}}">Logout</a>
+  <a href="{{url_for('profile',access_level=access_level,username=username)}}">View Profile</a>
+  {% if request.path != '/' and access_level=='Teacher' %}
+    <form action="{{ request.path }}" method="POST">
+      {{ form.csrf_token }}
+      <h3>First time here? Submit some data about you</h3>
+      <div class="form-group mb-3">
+        {{ form.first_name(class_="form-control",placeholder="First name",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+      <div class="form-group mb-3">
+        {{ form.last_name(class_="form-control",placeholder="Last name",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+      <div class="form-group mb-3">
+        {{ form.department(class_="form-control",placeholder="ID of department",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+      <div class="form-group mb-3" >
+            {{ form.chief(class_="form-control",placeholder="Chief?")}}
+        </div>
+        {% for error in form.chief.errors %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div> {% endfor%}
+        <div class="d-grid gap-2">
+              <button style="background-color:#fc8d54;border-color: #fc8d54;" type="submit" class="btn btn-block btn-primary mb-3"> {{ btn_action }} </button>
+        </div>
+      </form>
+  {% endif %}
+
+  {% if request.path != '/' and access_level=='Student' %}
+    <form action="{{ request.path }}" method="POST">
+      {{ form.csrf_token }}
+      <h3>First time here? Submit some data about you</h3>
+      <div class="form-group mb-3">
+        {{ form.first_name(class_="form-control",placeholder="First name",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+      <div class="form-group mb-3">
+        {{ form.last_name(class_="form-control",placeholder="Last name",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+
+        <div class="d-grid gap-2">
+              <button style="background-color:#fc8d54;border-color: #fc8d54;" type="submit" class="btn btn-block btn-primary mb-3"> {{ btn_action }} </button>
+        </div>
+      </form>
+  {% endif %}
+
+  {% if request.path != '/' and access_level=='Staff' %}
+    <form action="{{ request.path }}" method="POST">
+      {{ form.csrf_token }}
+      <h3>First time here? Submit some data about you</h3>
+      <div class="form-group mb-3">
+        {{ form.first_name(class_="form-control",placeholder="First name",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+      <div class="form-group mb-3">
+        {{ form.last_name(class_="form-control",placeholder="Last name",style="border-radius:10px;background-color:#ffffff;")}}
+      </div>
+
+        <div class="d-grid gap-2">
+              <button style="background-color:#fc8d54;border-color: #fc8d54;" type="submit" class="btn btn-block btn-primary mb-3"> {{ btn_action }} </button>
+        </div>
+      </form>
+  {% endif %}
+
+  {% else %}
+  <a href="{{url_for('login')}}">Sign in/Sign up</a>
+  {% endif %}
+
+</div>
+{% endblock %}
