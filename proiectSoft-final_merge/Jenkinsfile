@@ -1,15 +1,33 @@
 pipeline {
     agent any
     stages {
+        stage("Cloning repository") {
+            steps {
+               echo "Cloning repository"
+            }
+        }
+
         stage("Build") {
             steps {
                echo "Building right now"
             }
         }
 
-        stage("Test") {
+        stage("Unit Testing") {
             steps {
                echo "Testing process"
+            }
+        }
+
+        stage("Integration Testing") {
+            steps {
+               echo "Testing process"
+            }
+        }
+
+        stage("Deployment") {
+            steps {
+               echo "Deployment"
             }
         }
     }

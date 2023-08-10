@@ -1,0 +1,23 @@
+---
+- name: Deploy your-app on Kubernetes
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Build Docker image
+      shell: docker build -t academic-flask /Users/tudor/Documents/GitHub/academic-deploy/proiectSoft-final_merge/Application
+
+    - name: Authenticate with Google Cloud Registry
+      shell: gcloud auth configure-docker --quiet
+
+    - name: Tag Docker image
+      shell: docker tag academic-flask gcr.io/flask-academic/academic-flask
+
+    - name: Push Docker image to Google Cloud Registry
+      shell: docker push gcr.io/flask-academic/academic-flask
+
+    - name: Apply Kubernetes Deployment
+      shell: kubectl create deployment academic-flask-site--deployment --image=gcr.io/flask-academic/academic-flask
+
+    - name: Apply Kubernetes HPA
+      shell: kubectl autoscale deployment academic-flask-site--deployment --cpu-percent=70 --min=2 --max=5
