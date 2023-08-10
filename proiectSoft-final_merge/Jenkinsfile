@@ -11,28 +11,28 @@ pipeline {
         stage("Build") {
             steps {
                echo "Building right now"
-               sleep(2)
+               sleep(5)
             }
         }
 
         stage("Unit Testing") {
             steps {
                echo "Testing process"
-               sleep(1)
+               sleep(2)
             }
         }
 
         stage("Integration Testing") {
             steps {
                echo "Testing process"
-               sleep(1)
+               sleep(2)
             }
         }
 
         stage("Deployment") {
             steps {
                echo "Deployment"
-               sleep(2)
+               sleep(20)
             }
         }
     }

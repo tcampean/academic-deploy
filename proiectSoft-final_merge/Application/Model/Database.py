@@ -36,7 +36,7 @@ def complete_student(student):
     conn = open_connection()
     insert_student = "INSERT INTO students (username, first_name, last_name, student_year, student_group) VALUES(%s, %s, %s, %s, %s)"
     with conn.cursor() as cursor:
-        cursor.execute(insert_student, (student.username, student.first_name, student.last_name, str(23), str(25)))
+        cursor.execute(insert_student, (student.username, student.first_name, student.last_name, str(1), str(912)))
     conn.commit()
     conn.close()
 
