@@ -4,30 +4,35 @@ pipeline {
         stage("Cloning repository") {
             steps {
                echo "Cloning repository"
+               sleep(1)
             }
         }
 
         stage("Build") {
             steps {
                echo "Building right now"
+               sleep(2)
             }
         }
 
         stage("Unit Testing") {
             steps {
                echo "Testing process"
+               sleep(1)
             }
         }
 
         stage("Integration Testing") {
             steps {
                echo "Testing process"
+               sleep(1)
             }
         }
 
         stage("Deployment") {
             steps {
                echo "Deployment"
+               sleep(2)
             }
         }
     }
